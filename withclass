@@ -34,6 +34,7 @@ namespace MiniCalculator
 
         public static float MessageAnswer(float userAnswer, float answer)
         {
+
             Random random = new Random();
 
             if(userAnswer == answer)
@@ -57,13 +58,9 @@ namespace MiniCalculator
             }
             else
             {
-                throw new ArgumentException("Unexpected operator. Check again");
-                // Bat kaya may error yung MESSAGEANSWER class? Nagwi-wiggle siya na red kapag itong throw new Argument ay nilagay ko sa else.
-                // sabi not all code paths return a value
-                // pero kapag nilabas ko sa else, yung walang condition eh okay naman walang wiggle yung messageAnswer class. wala ring error
-                // sa compile. kapag nag run, gagana naman siya. pero kapag dating sa dulo ng code, dun na siya mag error ng argument exeption
-                
+                //throw new ArgumentException("Unexpected operator. Check again");
             }
+            throw new ArgumentException("Unexpected operator. Check again");
         }
      
                 
@@ -76,27 +73,66 @@ namespace MiniCalculator
             while(true)
             {
                 // Ask user to enter a number then store it in variable
+                Console.WriteLine("Type quit anytime to end the program. \n");
+
                 Console.WriteLine("Enter first number: ");
-                float num1 = float.Parse(Console.ReadLine());
+                string num1 = Console.ReadLine();
 
-                // ask what calculation he wants to perform
-                Console.WriteLine("What math do you want to do?");
-                string operators = Console.ReadLine();
+                if (num1.ToLower() == "quit")
+                {
+                    Console.WriteLine("Thank you for using the program. Goodbye!");
+                    break;
+                }
+                else
+                {
+                    // ask what calculation he wants to perform
+                    Console.WriteLine("What math do you want to do?");
+                    string operators = Console.ReadLine();
 
-                // ask again for the second number
-                Console.WriteLine("Enter second number: ");
-                float num2 = float.Parse(Console.ReadLine());
+                    if (operators.ToLower() == "quit")
+                    {
+                        Console.WriteLine("Thank you for using the program. Goodbye!");
+                        break;
+                    }
+                    else
+                    {
+                        // ask again for the second number
+                        Console.WriteLine("Enter second number: ");
+                        string num2 = Console.ReadLine();
 
-                // ask the user what his calculation is, then check if he got it right
-                Console.WriteLine("What's your answer");
-                float userAnswer = float.Parse(Console.ReadLine());
-                Console.WriteLine("Your answer is: " + userAnswer);
+                        if (num2.ToLower() == "quit") {
+                            Console.WriteLine("Thank you for using the program. Goodbye!");
+                            break;
+                        }
+                        else
+                        {
+                            // ask the user what his calculation is, then check if he got it right
+                            Console.WriteLine("What's your answer");
+                            string userAnswer = Console.ReadLine();
 
-                float answer = PerformCalculation(operators, num1, num2);
-                Console.WriteLine("Computer Answer is: " + answer);
+                            if (userAnswer.ToLower() == "quit")
+                            {
+                                Console.WriteLine("Thank you for using the program. Goodbye!");
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Your answer is: " + float.Parse(userAnswer));
 
-                // if he's wrong, prompt a random message telling him that the answer is incorrect
-                MessageAnswer(num1, num2);
+                                float answer = PerformCalculation(operators, float.Parse(num1), float.Parse(num2));
+                                Console.WriteLine("Computer Answer is: " + answer);
+
+                                // if he's wrong, prompt a random message telling him that the answer is incorrect
+                                MessageAnswer(float.Parse(num1), float.Parse(num2));
+                            }
+
+                        }
+
+                    }
+
+                }
+
+
 
             }// end of while loop
 
