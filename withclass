@@ -61,6 +61,11 @@ namespace MiniCalculator
                 //throw new ArgumentException("Unexpected operator. Check again");
             }
             throw new ArgumentException("Unexpected operator. Check again");
+            
+            // ano kaya problema niyang class na yan? kapag nilagay ko sa loob ng else yung throw new argument, may error yung class name
+            // sabi not all code path return a value. kapag naman nilagay ko sa labas ng else yung throw new argument, nagko-compile naman
+            // tapos magra run yung code, pero pag dating sa dulo mag crash siya. kahit lagyan ko ng try catch yang class na yan ganon
+            // parin
         }
      
                 
