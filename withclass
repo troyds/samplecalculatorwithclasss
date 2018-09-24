@@ -72,9 +72,9 @@ namespace MiniCalculator
         {
             while(true)
             {
-                // Ask user to enter a number then store it in variable
                 Console.WriteLine("Type quit anytime to end the program. \n");
 
+                // Ask user to enter a number then store it in variable
                 Console.WriteLine("Enter first number: ");
                 string num1 = Console.ReadLine();
 
