@@ -1,0 +1,106 @@
+using System;
+
+namespace MiniCalculator
+{
+    class Program
+    {
+        public static float PerformCalculation(string operation, float number1, float number2)
+        {
+            if (operation == "+")
+            {
+                return number1 + number2;
+            }
+            else if (operation == "-")
+            {
+                return number1 - number2;
+            }
+            else if (operation == "/")
+            {
+                return number1 / number2;
+            }
+            else if (operation == "*")
+            {
+                return number1 * number2;
+            }
+            else if (operation == "%")
+            {
+                return number1 % number2;
+            }
+            else
+            {
+                throw new ArgumentException("Unexpected operator string: " + operation);
+            }
+        }
+
+        public static float MessageAnswer(float userAnswer, float answer)
+        {
+            Random random = new Random();
+
+            if(userAnswer == answer)
+            {
+                Console.WriteLine("You got it right!");
+            }
+            else if (userAnswer != answer)
+            {
+                switch (random.Next(1, 4))
+                {
+                    case 1:
+                        Console.WriteLine("Try again next time.");
+                        break;
+                    case 2:
+                        Console.WriteLine("You are wrong. Try harder!");
+                        break;
+                    default:
+                        Console.WriteLine("Better luck next time!");
+                        break;
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Unexpected operator. Check again");
+                // Bat kaya may error yung MESSAGEANSWER class? Nagwi-wiggle siya na red kapag itong throw new Argument ay nilagay ko sa else.
+                // sabi not all code paths return a value
+                // pero kapag nilabas ko sa else, yung walang condition eh okay naman walang wiggle yung messageAnswer class. wala ring error
+                // sa compile. kapag nag run, gagana naman siya. pero kapag dating sa dulo ng code, dun na siya mag error ng argument exeption
+                
+            }
+        }
+     
+                
+
+            
+        
+
+        static void Main(string[] args)
+        {
+            while(true)
+            {
+                // Ask user to enter a number then store it in variable
+                Console.WriteLine("Enter first number: ");
+                float num1 = float.Parse(Console.ReadLine());
+
+                // ask what calculation he wants to perform
+                Console.WriteLine("What math do you want to do?");
+                string operators = Console.ReadLine();
+
+                // ask again for the second number
+                Console.WriteLine("Enter second number: ");
+                float num2 = float.Parse(Console.ReadLine());
+
+                // ask the user what his calculation is, then check if he got it right
+                Console.WriteLine("What's your answer");
+                float userAnswer = float.Parse(Console.ReadLine());
+                Console.WriteLine("Your answer is: " + userAnswer);
+
+                float answer = PerformCalculation(operators, num1, num2);
+                Console.WriteLine("Computer Answer is: " + answer);
+
+                // if he's wrong, prompt a random message telling him that the answer is incorrect
+                MessageAnswer(num1, num2);
+
+            }// end of while loop
+
+
+        }
+    }
+}
