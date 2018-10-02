@@ -2,9 +2,9 @@ using System;
 
 namespace MiniCalculator
 {
-    class Program
+    public class Calcu
     {
-        public static float PerformCalculation(string operation, float number1, float number2)
+        public float PerformCalculation(string operation, float number1, float number2)
         {
             if (operation == "+")
             {
@@ -31,7 +31,10 @@ namespace MiniCalculator
                 throw new ArgumentException("Unexpected operator string: " + operation);
             }
         }
+    }
 
+    class Program
+    {
         public static void MessageAnswer(float userAnswer, float answer)
         {
             try
@@ -72,63 +75,75 @@ namespace MiniCalculator
         {
             while(true)
             {
-                Console.WriteLine("Type quit anytime to end the program. \n");
-
-                // Ask user to enter a number then store it in variable
-                Console.WriteLine("Enter first number: ");
-                string num1 = Console.ReadLine();
-
-                if (num1.ToLower() == "quit")
+                try
                 {
-                    Console.WriteLine("\nThank you for using the program. Goodbye!");
-                    break;
-                }
-                else
-                {
-                    // ask what calculation he wants to perform
-                    Console.WriteLine("What math do you want to do?");
-                    string operators = Console.ReadLine();
+                    Console.WriteLine("Type quit anytime to end the program. \n");
 
-                    if (operators.ToLower() == "quit")
+                    // Ask user to enter a number then store it in variable
+                    Console.WriteLine("Enter first number: ");
+                    string num1 = Console.ReadLine();
+
+                    if (num1.ToLower() == "quit")
                     {
                         Console.WriteLine("\nThank you for using the program. Goodbye!");
                         break;
                     }
                     else
                     {
-                        // ask again for the second number
-                        Console.WriteLine("Enter second number: ");
-                        string num2 = Console.ReadLine();
+                        // ask what calculation he wants to perform
+                        Console.WriteLine("What math do you want to do?");
+                        string operators = Console.ReadLine();
 
-                        if (num2.ToLower() == "quit") {
+                        if (operators.ToLower() == "quit")
+                        {
                             Console.WriteLine("\nThank you for using the program. Goodbye!");
                             break;
                         }
                         else
                         {
-                            // ask the user what his calculation is, then check if he got it right
-                            Console.WriteLine("What's your answer");
-                            string userAnswer = Console.ReadLine();
+                            // ask again for the second number
+                            Console.WriteLine("Enter second number: ");
+                            string num2 = Console.ReadLine();
 
-                            if (userAnswer.ToLower() == "quit")
+                            if (num2.ToLower() == "quit")
                             {
                                 Console.WriteLine("\nThank you for using the program. Goodbye!");
                                 break;
                             }
                             else
                             {
-                                Console.WriteLine("Your answer is: " + float.Parse(userAnswer));
+                                // ask the user what his calculation is, then check if he got it right
+                                Console.WriteLine("What's your answer");
+                                string userAnswer = Console.ReadLine();
 
-                                float answer = PerformCalculation(operators, float.Parse(num1), float.Parse(num2));
-                                Console.WriteLine("Computer Answer is: " + answer);
+                                if (userAnswer.ToLower() == "quit")
+                                {
+                                    Console.WriteLine("\nThank you for using the program. Goodbye!");
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Your answer is: " + float.Parse(userAnswer));
 
-                                // if he's wrong, prompt a random message telling him that the answer is incorrect
-                                MessageAnswer(float.Parse(userAnswer), answer);
-                                Console.WriteLine();
-                            }
-                        }// end of else2
-                    }// end of else1
-                }// end of if else main
+                                    Calcu calc = new Calcu();
+                                    
+                                                    // WHY 
+                                    float answer = calc.PerformCalculation(operators, float.Parse(num1), float.Parse(num2));
+                                    Console.WriteLine("Computer Answer is: " + answer);
+
+                                    // if he's wrong, prompt a random message telling him that the answer is incorrect
+                                    MessageAnswer(float.Parse(userAnswer), answer);
+                                    Console.WriteLine();
+                                }
+                            }// end of else2
+                        }// end of else1
+                    }// end of if else main
+                }
+                catch(ArgumentException)
+                {
+                    Console.WriteLine("Please enter a valid input.\n");
+                }
+
             }// end of while loop
 
         }
