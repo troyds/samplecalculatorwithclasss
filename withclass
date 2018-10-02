@@ -32,42 +32,37 @@ namespace MiniCalculator
             }
         }
 
-        public static float MessageAnswer(float userAnswer, float answer)
+        public static void MessageAnswer(float userAnswer, float answer)
         {
-
-            Random random = new Random();
-
-            if(userAnswer == answer)
+            try
             {
-                Console.WriteLine("You got it right!");
-            }
-            else if (userAnswer != answer)
-            {
-                switch (random.Next(1, 4))
+                Random random = new Random();
+
+                if (userAnswer == answer)
                 {
-                    case 1:
-                        Console.WriteLine("Try again next time.");
-                        break;
-                    case 2:
-                        Console.WriteLine("You are wrong. Try harder!");
-                        break;
-                    default:
-                        Console.WriteLine("Better luck next time!");
-                        break;
+                    Console.WriteLine("You got it right!");
+                }
+                else
+                {
+                    switch (random.Next(1, 4))
+                    {
+                        case 1:
+                            Console.WriteLine("Try again next time.");
+                            break;
+                        case 2:
+                            Console.WriteLine("You are wrong. Try harder!");
+                            break;
+                        default:
+                            Console.WriteLine("Better luck next time!");
+                            break;
+                    }
                 }
             }
-            else
+            catch (ArgumentException)
             {
-                //throw new ArgumentException("Unexpected operator. Check again");
+                Console.WriteLine("Invalid. Try again.");
             }
-            throw new ArgumentException("Unexpected operator. Check again");
-            
-            // ano kaya problema niyang class na yan? kapag nilagay ko sa loob ng else yung throw new argument, may error yung class name
-            // sabi not all code path return a value. kapag naman nilagay ko sa labas ng else yung throw new argument, nagko-compile naman
-            // tapos magra run yung code, pero pag dating sa dulo mag crash siya. kahit lagyan ko ng try catch yang class na yan ganon
-            // parin
-        }
-     
+        } // end of MessageAnswer function
                 
 
             
@@ -85,7 +80,7 @@ namespace MiniCalculator
 
                 if (num1.ToLower() == "quit")
                 {
-                    Console.WriteLine("Thank you for using the program. Goodbye!");
+                    Console.WriteLine("\nThank you for using the program. Goodbye!");
                     break;
                 }
                 else
@@ -96,7 +91,7 @@ namespace MiniCalculator
 
                     if (operators.ToLower() == "quit")
                     {
-                        Console.WriteLine("Thank you for using the program. Goodbye!");
+                        Console.WriteLine("\nThank you for using the program. Goodbye!");
                         break;
                     }
                     else
@@ -106,7 +101,7 @@ namespace MiniCalculator
                         string num2 = Console.ReadLine();
 
                         if (num2.ToLower() == "quit") {
-                            Console.WriteLine("Thank you for using the program. Goodbye!");
+                            Console.WriteLine("\nThank you for using the program. Goodbye!");
                             break;
                         }
                         else
@@ -117,7 +112,7 @@ namespace MiniCalculator
 
                             if (userAnswer.ToLower() == "quit")
                             {
-                                Console.WriteLine("Thank you for using the program. Goodbye!");
+                                Console.WriteLine("\nThank you for using the program. Goodbye!");
                                 break;
                             }
                             else
@@ -128,19 +123,13 @@ namespace MiniCalculator
                                 Console.WriteLine("Computer Answer is: " + answer);
 
                                 // if he's wrong, prompt a random message telling him that the answer is incorrect
-                                MessageAnswer(float.Parse(num1), float.Parse(num2));
+                                MessageAnswer(float.Parse(userAnswer), answer);
+                                Console.WriteLine();
                             }
-
-                        }
-
-                    }
-
-                }
-
-
-
+                        }// end of else2
+                    }// end of else1
+                }// end of if else main
             }// end of while loop
-
 
         }
     }
